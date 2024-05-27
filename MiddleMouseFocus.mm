@@ -85,6 +85,7 @@ CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef e
     // Load icon from the .icns file in the app bundle
     NSString *iconPath = [[NSBundle mainBundle] pathForResource:@"MiddleMouseFocus" ofType:@"icns"];
     NSImage *icon = [[NSImage alloc] initWithContentsOfFile:iconPath];
+    icon.size = NSMakeSize(20, 20);
     [self.statusItem.button setImage:icon];
 
     self.statusItem.button.action = @selector(handleMenuAction:);
@@ -103,8 +104,40 @@ CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef e
 
 - (void)handleMenuAction:(id)sender {
     NSMenu *menu = [[NSMenu alloc] init];
+
+    NSMenuItem *appTitleItem = [[NSMenuItem alloc] initWithTitle:@"Middle Mouse Focus" action:nil keyEquivalent:@""];
+    [appTitleItem setEnabled:NO];
+    [menu addItem:appTitleItem];
+
+    [menu addItem:[NSMenuItem separatorItem]];
+
+    [menu addItemWithTitle:@"Version 1.0" action:nil keyEquivalent:@""];
+    [menu addItemWithTitle:@"About" action:@selector(showAbout:) keyEquivalent:@""];
+    [menu addItemWithTitle:@"GitHub" action:@selector(openSourceCode:) keyEquivalent:@""];
+    [menu addItemWithTitle:@"Help" action:@selector(openMailClient:) keyEquivalent:@""];
+
+    [menu addItem:[NSMenuItem separatorItem]];
+
     [menu addItemWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@""];
+
     [self.statusItem popUpStatusItemMenu:menu];
+}
+
+- (void)showAbout:(id)sender {
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.messageText = @"Middle Mouse Focus";
+    alert.informativeText = @"Press your middle mouse button to raise and focus the hovered window";
+    [alert addButtonWithTitle:@"OK"];
+    [alert runModal];
+}
+
+- (void)openSourceCode:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/Himonn/middlemousefocus"]];
+}
+
+- (void)openMailClient:(id)sender {
+    NSString *email = @"mailto:middlemousefocus@himon.dev?subject=Help";
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:email]];
 }
 
 @end
