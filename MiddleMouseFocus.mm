@@ -111,7 +111,7 @@ CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef e
 
     [menu addItem:[NSMenuItem separatorItem]];
 
-    [menu addItemWithTitle:@"Version 1.0" action:nil keyEquivalent:@""];
+    [menu addItemWithTitle:@"Version 1.1" action:nil keyEquivalent:@""];
     [menu addItemWithTitle:@"About" action:@selector(showAbout:) keyEquivalent:@""];
     [menu addItemWithTitle:@"GitHub" action:@selector(openSourceCode:) keyEquivalent:@""];
     [menu addItemWithTitle:@"Help" action:@selector(openMailClient:) keyEquivalent:@""];
