@@ -1,11 +1,8 @@
-// g++ -O2 -Wall -fobjc-arc -D"NS_FORMAT_ARGUMENT(A)=" -o MiddleMouseFocus MiddleMouseFocus.mm \
-//   -framework AppKit && ./MiddleMouseFocus
-
-#include <ApplicationServices/ApplicationServices.h>
-#include <CoreFoundation/CoreFoundation.h>
-#include <Foundation/Foundation.h>
-#include <AppKit/AppKit.h>
-#include <Carbon/Carbon.h>
+#import <ApplicationServices/ApplicationServices.h>
+#import <CoreFoundation/CoreFoundation.h>
+#import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
+#import <Carbon/Carbon.h>
 
 CFMachPortRef eventTap = NULL;
 static AXUIElementRef _accessibility_object = AXUIElementCreateSystemWide();
@@ -56,23 +53,6 @@ CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef e
     return event;
 }
 
-//int main(int argc, const char * argv[]) {
-//    @autoreleasepool {
-//        eventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault,
-//            CGEventMaskBit(kCGEventOtherMouseDown), eventTapHandler, NULL);
-//        if (eventTap) {
-//            CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0);
-//            if (runLoopSource) {
-//                CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
-//                CGEventTapEnable(eventTap, true);
-//            }
-//        }
-//
-//        [[NSApplication sharedApplication] run];
-//    }
-//    return 0;
-//}
-
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 @property (strong, nonatomic) NSStatusItem *statusItem;
 @end
@@ -83,8 +63,9 @@ CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef e
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
 
     // Load icon from the .icns file in the app bundle
-    NSString *iconPath = [[NSBundle mainBundle] pathForResource:@"MiddleMouseFocus" ofType:@"icns"];
+    NSString *iconPath = [[NSBundle mainBundle] pathForResource:@"icon_monochrome" ofType:@"png"];
     NSImage *icon = [[NSImage alloc] initWithContentsOfFile:iconPath];
+    [icon setTemplate:YES];
     icon.size = NSMakeSize(20, 20);
     [self.statusItem.button setImage:icon];
 
@@ -111,7 +92,7 @@ CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef e
 
     [menu addItem:[NSMenuItem separatorItem]];
 
-    [menu addItemWithTitle:@"Version 1.1" action:nil keyEquivalent:@""];
+    [menu addItemWithTitle:@"Version 1.2" action:nil keyEquivalent:@""];
     [menu addItemWithTitle:@"About" action:@selector(showAbout:) keyEquivalent:@""];
     [menu addItemWithTitle:@"GitHub" action:@selector(openSourceCode:) keyEquivalent:@""];
     [menu addItemWithTitle:@"Help" action:@selector(openMailClient:) keyEquivalent:@""];
