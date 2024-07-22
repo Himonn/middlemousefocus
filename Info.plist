@@ -9,7 +9,7 @@
 	<key>CFBundleGetInfoString</key>
 	<string>Copyright © 2024 Simon Peppitt</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1</string>
+	<string>1.2</string>
 	<key>CFBundleIconFile</key>
 	<string>MiddleMouseFocus</string>
 	<key>CFBundleName</key>
