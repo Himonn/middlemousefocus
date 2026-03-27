@@ -1,6 +1,9 @@
 MiddleMouseFocus
 MiddleMouseFocus.out
 MiddleMouseFocus.app
+*.dmg
 *~
 .claude
 .idea
+MiddleMouseFocus.xcodeproj/xcuserdata/
+MiddleMouseFocus.xcodeproj/project.xcworkspace/xcuserdata/
